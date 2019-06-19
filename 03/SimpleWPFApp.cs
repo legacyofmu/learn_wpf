@@ -10,8 +10,50 @@ namespace SimpleWPFApp
 		// UI object
 		private Button btnExitApp = new Button();
 		
+		// string that updated when events occur.
+		private string lifeTimeData = String.Empty;
+		
+		protected void MainWindow_Activated(object sender, EventArgs e)
+		{
+			lifeTimeData += "Activated Event Fired\n";
+		}
+		
+		protected void MainWindow_Deactivated(object sender, EventArgs e)
+		{
+			lifeTimeData += "Deactivated Event Fired\n";
+		}
+		
+		protected void MainWindow_Loaded(object sender, EventArgs e)
+		{
+			lifeTimeData += "Loaded Event Fired\n";
+		}
+		
+		protected void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			lifeTimeData += "Closing Event Fired\n";
+			
+			string msg = "Do you want to close without saving?";
+			MessageBoxResult result = MessageBox.Show(msg, "My App", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+			if (result == MessageBoxResult.No)
+			{
+				e.Cancel = true;
+			}
+		}
+		
+		protected void MainWindow_Closed(object sender, EventArgs e)
+		{
+			lifeTimeData += "Closing Event Fired\n";
+			MessageBox.Show(lifeTimeData);
+		}
+
 		public MainWindow(string title, int height, int width)
 		{
+			// Set event
+			this.Activated += MainWindow_Activated;
+			this.Deactivated += MainWindow_Deactivated;
+			this.Closing += MainWindow_Closing;
+			this.Closed += MainWindow_Closed;
+			
 			// Set button
 			btnExitApp.Click += new RoutedEventHandler(btnExitApp_Clicked);
 			btnExitApp.Content = "Exit Application";
@@ -70,6 +112,14 @@ namespace SimpleWPFApp
 			}
 			
 			MainWindow mainWindow = new MainWindow("My First WPF App!", 200, 300);
+		}
+		
+		static void MinimizeAllWindows()
+		{
+			foreach (Window wnd in Application.Current.Windows)
+			{
+				wnd.WindowState = WindowState.Minimized;
+			}
 		}
 	}
 }
