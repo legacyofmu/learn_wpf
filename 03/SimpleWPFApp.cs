@@ -5,6 +5,18 @@ using System.Windows.Controls;
 namespace SimpleWPFApp
 {
 	//
+	class MainWindow : Window
+	{
+		public MainWindow(string title, int height, int width)
+		{
+			this.Title = title;
+			this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+			this.Height = height;
+			this.Width = width;
+			this.Show();
+		}
+	}
+	
 	class MyWPFApp : Application
 	{
 		[STAThread]
@@ -23,12 +35,7 @@ namespace SimpleWPFApp
 		
 		static void AppStartup(object sender, StartupEventArgs e)
 		{
-			Window mainWindow = new Window();
-			mainWindow.Title = "My First WPF App!";
-			mainWindow.Height = 200;
-			mainWindow.Width = 300;
-			mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-			mainWindow.Show();
+			MainWindow mainWindow = new MainWindow("My First WPF App!", 200, 300);
 		}
 	}
 }
