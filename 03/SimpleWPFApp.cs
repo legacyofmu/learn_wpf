@@ -7,13 +7,30 @@ namespace SimpleWPFApp
 	//
 	class MainWindow : Window
 	{
+		// UI object
+		private Button btnExitApp = new Button();
+		
 		public MainWindow(string title, int height, int width)
 		{
+			// Set button
+			btnExitApp.Click += new RoutedEventHandler(btnExitApp_Clicked);
+			btnExitApp.Content = "Exit Application";
+			btnExitApp.Height = 25;
+			btnExitApp.Width = 100;
+			
+			this.AddChild(btnExitApp);
+			
+			// Set Window
 			this.Title = title;
 			this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 			this.Height = height;
 			this.Width = width;
 			this.Show();
+		}
+		
+		private void btnExitApp_Clicked(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
 		}
 	}
 	
