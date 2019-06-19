@@ -30,6 +30,11 @@ namespace SimpleWPFApp
 		
 		private void btnExitApp_Clicked(object sender, RoutedEventArgs e)
 		{
+			if ((bool)Application.Current.Properties["GodMode"])
+			{
+				MessageBox.Show("Cheater!");
+			}
+			
 			Application.Current.Shutdown();
 		}
 	}
@@ -47,11 +52,23 @@ namespace SimpleWPFApp
 		
 		static void AppExit(object sender, ExitEventArgs e)
 		{
-			MessageBox.Show("App hax exited");
+			MessageBox.Show("App has exited");
 		}
 		
 		static void AppStartup(object sender, StartupEventArgs e)
 		{
+			// Check parameter is input, if exist then set true
+			Application.Current.Properties["GodMode"] = false;
+			
+			foreach (string arg in e.Args)
+			{
+				if (arg.ToLower() == "/godmode")
+				{
+					Application.Current.Properties["GodMode"] = true;
+					break;
+				}
+			}
+			
 			MainWindow mainWindow = new MainWindow("My First WPF App!", 200, 300);
 		}
 	}
