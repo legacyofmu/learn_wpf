@@ -9,14 +9,4 @@
   <Button Width="133" Height="24" Name="btnExitApp" Click="btnExitApp_Clicked">
     Exit Application
   </Button>
-
-  <!-- Button Click Event -->
-  <x:Code>
-    <![CDATA[
-      private void btnExitApp_Clicked(object sender, RoutedEventArgs e)
-      {
-        Application.Current.Shutdown();
-      }
-    ]]>
-  </x:Code>
 </Window>
